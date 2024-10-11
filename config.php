@@ -1,9 +1,9 @@
 <?php
-// config.php - Database connection
-$host = 'localhost'; // Change if needed
-$dbname = 'todo_app'; // Change if needed
-$user = 'root'; // Change if needed
-$pass = ''; // Change if needed
+// config.php
+$host = 'localhost'; // Localhost karena kita pakai XAMPP
+$dbname = 'todo_app'; // Nama database yang Anda buat di phpMyAdmin
+$user = 'root'; // Default user MySQL di XAMPP
+$pass = ''; // Default password kosong di XAMPP
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
