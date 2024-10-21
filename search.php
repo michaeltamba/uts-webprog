@@ -36,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
         $searchResults .= "<h4 class='text-success mb-4'>Found " . count($result) . " to-do list(s)</h4>";
         $searchResults .= "<div class='list-group'>";
         foreach ($result as $todo_list) {
-            $searchResults .= "<a href='#' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-white border-secondary'>";
+            // Tautkan judul ke ViewToDoList.php
+            $searchResults .= "<a href='ViewToDoList.php?id=" . $todo_list['id'] . "' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-white border-secondary'>";
             $searchResults .= "<span>" . htmlspecialchars($todo_list['title']) . "</span>"; // Tampilkan judul
             $searchResults .= "<span class='badge bg-info rounded-pill'>To-Do List</span>";
             $searchResults .= "</a>";
@@ -46,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
         $searchResults .= "<h4 class='text-danger mb-4'>No to-do lists found for your search.</h4>";
     }
 }
-
 ?>
 
 <!DOCTYPE html>

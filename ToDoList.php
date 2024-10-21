@@ -42,7 +42,10 @@ $todo_lists = $stmt->fetchAll();
         <ul class="list-group">
             <?php foreach ($todo_lists as $row) : ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?php echo htmlspecialchars($row['title']); ?>
+                    <!-- Tautkan judul ke halaman ViewToDoList.php -->
+                    <a href="ViewToDoList.php?id=<?php echo $row['id']; ?>" class="text-decoration-none text-dark">
+                        <?php echo htmlspecialchars($row['title']); ?>
+                    </a>
                     <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this list?');">Delete</a>
                 </li>
             <?php endforeach; ?>
