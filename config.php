@@ -12,6 +12,7 @@ $options = [
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,       // Mengambil data sebagai array asosiatif
     PDO::ATTR_EMULATE_PREPARES   => false,                  // Menonaktifkan emulasi prepare statements
 ];
+// Test
 
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);

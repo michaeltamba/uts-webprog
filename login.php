@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = $stmt->fetch();
 
     // Verifikasi password
+    // Test
     if ($user && password_verify($password, $user['password'])) {
         // Set session
         $_SESSION['user_id'] = $user['id'];
