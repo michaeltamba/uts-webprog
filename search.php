@@ -11,15 +11,26 @@ if (!isset($_SESSION['user_id'])) {
 // Variabel untuk menyimpan hasil pencarian
 $searchResults = '';
 $searchQuery = '';
+$filterStatus = ''; // Variabel untuk filter status
 $user_id = $_SESSION['user_id'];
 
-// Cek apakah request GET dan parameter 'search' tersedia
-if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
-    $search = $_GET['search'];
+// Cek apakah request GET dan parameter 'search' dan 'filter' tersedia
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    // Dapatkan query pencarian dan filter status
+    $search = $_GET['search'] ?? '';
+    $filterStatus = $_GET['filter_status'] ?? 'all'; // Nilai default 'all'
     $searchQuery = htmlspecialchars($search); // Sanitasi query pencarian
 
-    // Persiapkan pernyataan SQL untuk mencari todo_list
+    // Mulai query SQL dasar
     $query = "SELECT * FROM todo_lists WHERE title LIKE :search AND user_id = :user_id";
+
+    // Tambahkan filter status jika dipilih
+    if ($filterStatus == 'complete') {
+        $query .= " AND status = 'complete'";
+    } elseif ($filterStatus == 'incomplete') {
+        $query .= " AND status = 'incomplete'";
+    }
+
     $stmt = $pdo->prepare($query);
     $searchParam = "%" . $search . "%";
 
@@ -39,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
             // Tautkan judul ke ViewToDoList.php
             $searchResults .= "<a href='ViewToDoList.php?id=" . $todo_list['id'] . "' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-white border-secondary'>";
             $searchResults .= "<span>" . htmlspecialchars($todo_list['title']) . "</span>"; // Tampilkan judul
-            $searchResults .= "<span class='badge bg-info rounded-pill'>To-Do List</span>";
+            $searchResults .= "<span class='badge bg-info rounded-pill'>" . ucfirst($todo_list['status']) . "</span>"; // Tampilkan status
             $searchResults .= "</a>";
         }
         $searchResults .= "</div>";
@@ -67,6 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
                         <h2 class="text-center text-info mb-4">Search Your To-Do Lists</h2>
                         <form method="GET" class="input-group input-group-lg">
                             <input type="text" name="search" class="form-control bg-dark text-white border-secondary mr-1" placeholder="What to-do list are you looking for?" aria-label="Search To-Do Lists" required>
+                            <select name="filter_status" class="form-select bg-dark text-white border-secondary">
+                                <option value="all" <?php echo ($filterStatus == 'all') ? 'selected' : ''; ?>>All</option>
+                                <option value="complete" <?php echo ($filterStatus == 'complete') ? 'selected' : ''; ?>>Completed</option>
+                                <option value="incomplete" <?php echo ($filterStatus == 'incomplete') ? 'selected' : ''; ?>>Incomplete</option>
+                            </select>
                             <button type="submit" class="btn btn-info px-4">Search</button>
                         </form>
                     </div>
