@@ -1,11 +1,12 @@
 <?php
 session_start();
 
-// If user is not logged in, redirect to login page
+// Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-    exit;
+    exit();
 }
 
-echo "Welcome, " . $_SESSION['username'] . "! <br>";
+echo "Welcome, " . htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8') . "! <br>";
 echo "<a href='logout.php'>Logout</a>";
+?>
