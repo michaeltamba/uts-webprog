@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-session_start(); // Pastikan session dimulai
+session_start(); 
 
 // Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #091057;
+            background:#091057;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding: 40px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            background-color: white;
+            background-color: #DBD3D3;
         }
 
         h1 {
@@ -100,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 20px;
             border-radius: 8px;
         }
+
     </style>
 </head>
 <body>

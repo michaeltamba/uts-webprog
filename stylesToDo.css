@@ -1,0 +1,114 @@
+/* Body Styling */
+body {
+    background-color: #091057;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Card Styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    background-color: #DBD3D3;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-body h5 {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.card-body p {
+    color: #6c757d;
+}
+
+.card-footer {
+    background-color: transparent;
+}
+
+/* Button Styling */
+.create-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.create-btn:hover {
+    background-color: #218838;
+}
+
+.btn-outline-primary {
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #ec8305;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.delete-btn i {
+    margin-right: 5px;
+}
+
+/* Heading Styling */
+h1 {
+    font-size: 60px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    color: #ffff
+;
+    margin-bottom: 30px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* To-Do List Empty Message */
+.alert {
+    background-color: #DBD3D3;
+    border-radius: 10px;
+    color: #495057;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 767.98px) {
+    h1 {
+        font-size: 28px;
+    }
+
+    .create-btn {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}

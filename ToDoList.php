@@ -30,51 +30,7 @@ $todo_lists = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List Management</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #091057;
-        }
-
-        .card {
-            border: none;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .delete-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        .delete-btn:hover {
-            background-color: #c82333;
-        }
-
-        .delete-btn i {
-            margin-right: 5px;
-        }
-
-        .create-btn {
-            background-color: #0d6efd;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .create-btn:hover {
-            background-color: #0b5ed7;
-        }
-    </style>
+    <link rel="stylesheet" href="stylesToDo.css">
 </head>
 <body>
 
