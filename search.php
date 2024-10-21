@@ -25,19 +25,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 ?>
 
-<!-- Form untuk mencari task -->
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow-lg p-3 mb-5 bg-white rounded">
-        <div class="card-body">
-          <h2 class="text-center text-primary mb-4">Search Your Tasks</h2>
-          <form method="GET" class="d-flex">
-            <input type="text" name="search" class="form-control form-control-lg me-2" placeholder="Enter task to search..." aria-label="Search Tasks" required>
-            <button type="submit" class="btn btn-primary btn-lg">Search</button>
-          </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+          <div class="card-body">
+            <h2 class="text-center text-primary mb-4">Search Your Tasks</h2>
+            <form method="GET" class="d-flex">
+              <input type="text" name="search" class="form-control form-control-lg me-2" placeholder="Enter task to search..." aria-label="Search Tasks" required>
+              <button type="submit" class="btn btn-primary btn-lg">Search</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  
+</body>
+</html>
+
