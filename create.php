@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-session_start(); // Pastikan session dimulai
+session_start(); 
 
 // Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
@@ -100,6 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             margin-top: 20px;
             border-radius: 8px;
         }
+
     </style>
 </head>
 <body>
