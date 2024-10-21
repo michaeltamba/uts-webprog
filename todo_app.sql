@@ -43,6 +43,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`) VALUES
 (1, 'deva', 'test@gmail.com', '$2y$10$NMlGTl2doejB79UCK47JUewujWUdDVZ49Slh1BY0sLgUjL0vwuVge', '2024-10-11 11:25:51');
 
+CREATE TABLE IF NOT EXISTS `todo_lists` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
