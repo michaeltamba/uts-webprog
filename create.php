@@ -1,21 +1,20 @@
 <?php
 include 'config.php';
 
-// Handle form submission with prepared statement
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     
     if (!empty($title)) {
-        $stmt = $conn->prepare("INSERT INTO todo_lists (title) VALUES (?)");
-        $stmt->bind_param("s", $title);
-        $stmt->execute();
-        $stmt->close();
+        // Menggunakan PDO untuk menyiapkan query
+        $stmt = $pdo->prepare("INSERT INTO todo_lists (title) VALUES (:title)");
+        $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+        $stmt->execute(); // Eksekusi query
         header('Location: ToDoList.php');
+        exit; // Pastikan untuk keluar setelah redirect
     } else {
         $error = "Title cannot be empty!";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
 
         <?php if (isset($error)) : ?>
-            <div class="alert alert-danger mt-3"><?php echo htmlspecialchars($error); // Protect against XSS ?></div>
+            <div class="alert alert-danger mt-3"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
         <a href="ToDoList.php" class="btn btn-link mt-3">Back to To-Do Lists</a>
