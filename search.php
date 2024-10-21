@@ -60,19 +60,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
 <body>
 
     <div class="container mt-5">
-      <div class="row justify-content-center">
-        <div class="col-md-8">
-          <div class="card bg-dark text-white shadow-lg p-4 mb-5 rounded border-secondary">
-            <div class="card-body">
-              <h2 class="text-center text-info mb-4">Search Your To-Do Lists</h2>
-              <form method="GET" class="input-group input-group-lg">
-                <input type="text" name="search" class="form-control bg-dark text-white border-secondary mr-1" placeholder="What to-do list are you looking for?" aria-label="Search To-Do Lists" required>
-                <button type="submit" class="btn btn-info px-4">Search</button>
-              </form>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card bg-dark text-white shadow-lg p-4 mb-5 rounded border-secondary">
+                    <div class="card-body">
+                        <h2 class="text-center text-info mb-4">Search Your To-Do Lists</h2>
+                        <form method="GET" class="input-group input-group-lg">
+                            <input type="text" name="search" class="form-control bg-dark text-white border-secondary mr-1" placeholder="What to-do list are you looking for?" aria-label="Search To-Do Lists" required>
+                            <button type="submit" class="btn btn-info px-4">Search</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
     <div class="container mt-5 text-white">
