@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Set session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header("Location: dashboard.php");
+        header("Location: ToDoList.php");
     } else {
         $error = "Email atau password salah.";
     }
