@@ -2,94 +2,84 @@
 include 'config.php';
 session_start(); // Pastikan session dimulai
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $search = $_GET['search'] ?? '';
-    $user_id = $_SESSION['user_id'] ?? 0; // Default to 0 if user_id is not set
+// Variabel untuk menyimpan hasil pencarian
+$searchResults = '';
+$searchQuery = '';
+$user_id = $_SESSION['user_id'] ?? 0; // Ambil user_id dari sesi, default 0 jika tidak ada
 
-    // Persiapkan pernyataan SQL untuk mencegah SQL injection
-    $query = "SELECT * FROM Tasks WHERE task LIKE ? AND list_id IN (SELECT id FROM ToDoLists WHERE user_id = ?)";
-    $stmt = $conn->prepare($query);
+// Cek apakah request GET dan parameter 'search' tersedia
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $searchQuery = htmlspecialchars($search); // Sanitasi query pencarian
+
+    // Persiapkan pernyataan SQL untuk mencari todo_list
+    $query = "SELECT * FROM todo_lists WHERE title LIKE :search AND user_id = :user_id";
+    $stmt = $pdo->prepare($query);
     $searchParam = "%" . $search . "%";
-    $stmt->bind_param('si', $searchParam, $user_id);
+
+    // Bind parameter ke pernyataan SQL
+    $stmt->bindParam(':search', $searchParam);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+
+    // Eksekusi pernyataan
     $stmt->execute();
-    $result = $stmt->get_result();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Ambil hasil sebagai array asosiatif
 
-    echo "<div class='container mt-5 text-white'>";
-    if ($result->num_rows > 0) {
-        echo "<h4 class='text-success mb-4'>Found " . $result->num_rows . " task(s)</h4>";
-        echo "<div class='list-group'>";
-        while ($task = $result->fetch_assoc()) {
-            echo "<a href='#' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-white border-light shadow-lg'>";
-            echo "<span>" . htmlspecialchars($task['task']) . "</span>"; // Escape output for safety
-            echo "<span class='badge bg-info rounded-pill'>Task</span>";
-            echo "</a>";
+    // Membungkus hasil pencarian dalam card
+    if (count($result) > 0) {
+        $searchResults .= "<h4 class='text-success mb-4'>Found " . count($result) . " to-do list(s)</h4>";
+        $searchResults .= "<div class='list-group'>";
+        foreach ($result as $todo_list) {
+            $searchResults .= "<a href='#' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-white border-secondary'>";
+            $searchResults .= "<span>" . htmlspecialchars($todo_list['title']) . "</span>"; // Tampilkan judul
+            $searchResults .= "<span class='badge bg-info rounded-pill'>To-Do List</span>";
+            $searchResults .= "</a>";
         }
-        echo "</div>";
+        $searchResults .= "</div>";
     } else {
-        echo "<h4 class='text-danger mb-4'>No tasks found for your search.</h4>";
+        $searchResults .= "<h4 class='text-danger mb-4'>No to-do lists found for your search.</h4>";
     }
-    echo "</div>";
-
-    $stmt->close(); // Tutup pernyataan
 }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search To-Do Lists</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
-    <div class="row justify-content-center">
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-lg p-4 mb-5 rounded border-light" style="background: linear-gradient(to right, #1e3c72, #2a5298);">
-                <div class="card-body">
-                    <h2 class="text-center text-light mb-4">Search Your Tasks</h2>
-                    <form method="GET" class="input-group input-group-lg">
-                        <input type="text" name="search" class="form-control bg-dark text-white border-secondary mr-1" placeholder="What task are you looking for?" aria-label="Search Tasks" required>
-                        <button type="submit" class="btn btn-info px-4" style="background: linear-gradient(to right, #00c6ff, #0072ff); transition: background 0.3s ease;">Search</button>
-                    </form>
-                </div>
+          <div class="card bg-dark text-white shadow-lg p-4 mb-5 rounded border-secondary">
+            <div class="card-body">
+              <h2 class="text-center text-info mb-4">Search Your To-Do Lists</h2>
+              <form method="GET" class="input-group input-group-lg">
+                <input type="text" name="search" class="form-control bg-dark text-white border-secondary mr-1" placeholder="What to-do list are you looking for?" aria-label="Search To-Do Lists" required>
+                <button type="submit" class="btn btn-info px-4">Search</button>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- CSS Kustom untuk Sentuhan Tambahan -->
-<style>
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #121212; /* Latar belakang gelap */
-}
+    <div class="container mt-5 text-white">
+        <div class='card bg-dark border-secondary mb-4'> <!-- Card untuk hasil pencarian -->
+            <div class='card-body'>
+                <?php if (!empty($searchQuery)): ?>
+                    <h4 class='text-info'>Search Query: <?php echo $searchQuery; ?></h4>
+                <?php endif; ?>
+                <?php echo $searchResults; ?>
+            </div> <!-- Tutup card-body -->
+        </div> <!-- Tutup card -->
+    </div>
 
-.list-group-item {
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.list-group-item:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Efek hover untuk item daftar */
-    transform: translateY(-2px); /* Efek sedikit mengangkat saat hover */
-}
-
-h4 {
-    font-weight: 500; /* Menambah ketebalan font untuk judul */
-}
-
-.card {
-    border-radius: 15px; /* Rounded corners untuk kartu */
-}
-
-input::placeholder {
-    color: rgba(255, 255, 255, 0.7); /* Placeholder lebih cerah */
-}
-</style>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
