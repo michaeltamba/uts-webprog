@@ -1,9 +1,3 @@
-<?php
-
-$tes = 2;
-
-echo $tes;
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
