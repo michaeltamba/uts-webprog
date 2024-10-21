@@ -54,12 +54,13 @@ try {
     ";
     $pdo->exec($createTodoListTableQuery);
 
-    // Tambahkan kolom description, deadline, dan note jika belum ada
+    // Tambahkan kolom description, deadline, note, dan status jika belum ada
     $alterTableQuery = "
         ALTER TABLE `todo_lists` 
         ADD COLUMN IF NOT EXISTS `description` TEXT,
         ADD COLUMN IF NOT EXISTS `deadline` DATE,
-        ADD COLUMN IF NOT EXISTS `note` TEXT;
+        ADD COLUMN IF NOT EXISTS `note` TEXT,
+        ADD COLUMN IF NOT EXISTS `status` ENUM('incomplete', 'complete') DEFAULT 'incomplete';
     ";
     $pdo->exec($alterTableQuery);
 
