@@ -37,18 +37,31 @@ try {
     ";
     $pdo->exec($createUserTableQuery);
 
-    // Membuat tabel todo_lists jika belum ada
+    // Membuat tabel todo_lists dengan kolom tambahan jika belum ada
     $createTodoListTableQuery = "
         CREATE TABLE IF NOT EXISTS `todo_lists` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
-            `user_id` int(11) NOT NULL,  -- Relasi ke user
+            `user_id` int(11) NOT NULL,
             `title` varchar(255) NOT NULL,
+            `description` TEXT,
+            `deadline` DATE,
+            `note` TEXT,
+            `status` ENUM('incomplete', 'complete') DEFAULT 'incomplete',
             `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
             PRIMARY KEY (`id`),
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
     ";
     $pdo->exec($createTodoListTableQuery);
+
+    // Tambahkan kolom description, deadline, dan note jika belum ada
+    $alterTableQuery = "
+        ALTER TABLE `todo_lists` 
+        ADD COLUMN IF NOT EXISTS `description` TEXT,
+        ADD COLUMN IF NOT EXISTS `deadline` DATE,
+        ADD COLUMN IF NOT EXISTS `note` TEXT;
+    ";
+    $pdo->exec($alterTableQuery);
 
 } catch (PDOException $e) {
     die("Koneksi database gagal: " . $e->getMessage());
