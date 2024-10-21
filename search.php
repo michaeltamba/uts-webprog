@@ -2,10 +2,16 @@
 include 'config.php';
 session_start(); // Pastikan session dimulai
 
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 // Variabel untuk menyimpan hasil pencarian
 $searchResults = '';
 $searchQuery = '';
-$user_id = $_SESSION['user_id'] ?? 0; // Ambil user_id dari sesi, default 0 jika tidak ada
+$user_id = $_SESSION['user_id'];
 
 // Cek apakah request GET dan parameter 'search' tersedia
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {

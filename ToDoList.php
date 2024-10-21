@@ -1,18 +1,25 @@
 <?php
 include 'config.php';
+session_start();
+
+// Cek apakah user sudah login
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
 // Handle delete action with prepared statement
 if (isset($_GET['delete_id'])) {
     $delete_id = (int)$_GET['delete_id'];
-    $stmt = $pdo->prepare("DELETE FROM todo_lists WHERE id = ?");
-    $stmt->execute([$delete_id]); // Jalankan query dengan parameter
+    $stmt = $pdo->prepare("DELETE FROM todo_lists WHERE id = ? AND user_id = ?");
+    $stmt->execute([$delete_id, $_SESSION['user_id']]);
     header('Location: ToDoList.php');
     exit;
 }
 
-// Fetch all to-do lists using prepared statement
-$stmt = $pdo->prepare("SELECT * FROM todo_lists");
-$stmt->execute();
+// Fetch all to-do lists for the logged-in user
+$stmt = $pdo->prepare("SELECT * FROM todo_lists WHERE user_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
 $todo_lists = $stmt->fetchAll();
 ?>
 
@@ -35,7 +42,7 @@ $todo_lists = $stmt->fetchAll();
         <ul class="list-group">
             <?php foreach ($todo_lists as $row) : ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <?php echo htmlspecialchars($row['title']); // Protect against XSS ?>
+                    <?php echo htmlspecialchars($row['title']); ?>
                     <a href="?delete_id=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this list?');">Delete</a>
                 </li>
             <?php endforeach; ?>
