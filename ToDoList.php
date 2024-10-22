@@ -23,6 +23,7 @@ $stmt->execute([$_SESSION['user_id']]);
 $todo_lists = $stmt->fetchAll();
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +39,8 @@ $todo_lists = $stmt->fetchAll();
     <h1 class="text-center mb-4">Your To-Do Lists</h1>
 
     <!-- Tombol untuk membuat To-Do List baru -->
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end mb-3 ">
+        <a href="create.php" class="btn create-btn">search New To-Do List</a>
         <a href="create.php" class="btn create-btn">Create New To-Do List</a>
     </div>
 
