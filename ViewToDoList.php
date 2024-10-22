@@ -68,62 +68,63 @@ $status = $todo_list['status'] ?? 'incomplete';
     <title>View To-Do List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f4f6f9;
-        }
+  body {
+    background-color: #DBD3D3; /* Mengubah menjadi warna dari palet */
+}
 
-        .header {
-            background: linear-gradient(45deg, #1e90ff, #00bfff);
-            padding: 30px;
-            color: white;
-            text-align: center;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.header {
+    background: linear-gradient(45deg, #091057, #024CAA); /* Menggunakan #091057 dan #024CAA untuk gradient */
+    padding: 30px;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        .card {
-            border: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+.card {
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            transition: all 0.3s ease-in-out;
-        }
+.card:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease-in-out;
+}
 
-        .btn-primary {
-            background-color: #1e90ff;
-            border: none;
-        }
+.btn-primary {
+    background-color: #091057; /* Mengubah menjadi #091057 */
+    border: none;
+}
 
-        .btn-primary:hover {
-            background-color: #0d6efd;
-        }
+.btn-primary:hover {
+    background-color: #024CAA; /* Mengubah menjadi #024CAA */
+}
 
-        .btn-info {
-            background-color: #00bfff;
-            border: none;
-        }
+.btn-info {
+    background-color: #EC8305; /* Mengubah menjadi #EC8305 */
+    border: none;
+}
 
-        .btn-info:hover {
-            background-color: #009acd;
-        }
+.btn-info:hover {
+    background-color: #024CAA; /* Mengubah menjadi #024CAA */
+}
 
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 12px;
-        }
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+}
 
-        .badge-complete {
-            background-color: #28a745;
-            color: white;
-        }
+.badge-complete {
+    background-color: #28a745;
+    color: white;
+}
 
-        .badge-incomplete {
-            background-color: #dc3545;
-            color: white;
-        }
+.badge-incomplete {
+    background-color: #dc3545;
+    color: white;
+}
+
     </style>
 </head>
 <body>
