@@ -1,11 +1,8 @@
-/* Body Styling */
 body {
     background-color: #091057;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
 }
-
-/* Card Styling */
 .card {
     border: none;
     border-radius: 10px;
@@ -32,7 +29,6 @@ body {
     background-color: transparent;
 }
 
-/* Button Styling */
 .create-btn {
     background-color: #007bff;
     color: white;
@@ -74,7 +70,6 @@ body {
     margin-right: 5px;
 }
 
-/* Heading Styling */
 h1 {
     font-size: 60px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -84,20 +79,17 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* Container */
 .container {
     max-width: 1200px;
     margin: auto;
 }
 
-/* To-Do List Empty Message */
 .alert {
     background-color: #DBD3D3;
     border-radius: 10px;
     color: #495057;
 }
 
-/* Media Queries for Mobile Responsiveness */
 @media (max-width: 767.98px) {
     h1 {
         font-size: 28px;
@@ -112,8 +104,6 @@ h1 {
         margin-bottom: 20px;
     }
 
-
-/* Button Styling */
 .create-btn {
     background-color: #007bff;
     color: white;
