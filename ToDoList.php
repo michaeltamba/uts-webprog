@@ -38,15 +38,11 @@ $todo_lists = $stmt->fetchAll();
 <div class="container mt-5">
     <h1 class="text-center mb-4">Your To-Do Lists</h1>
 
-    <!-- Tombol untuk Logout dan Membuat To-Do List baru -->
-    <div class="d-flex justify-content-between mb-3">
-        <!-- Tombol Logout -->
-        <a href="logout.php" class="btn logout-btn">Logout</a>
-
-        <!-- Tombol Create To-Do List -->
+   
+    <div class="d-flex justify-content-end mb-3 ">
+        <a href="search.php" class="btn create-btn me-2">Search</a>
         <a href="create.php" class="btn create-btn">Create New To-Do List</a>
     </div>
-
  
 
     <!-- Bootstrap Grid Layout for ToDo Cards -->
@@ -84,6 +80,13 @@ $todo_lists = $stmt->fetchAll();
             </div>
         <?php endif; ?>
     </div>
+        <!-- Tombol Profile -->
+        <a href="profile.php" class="btn btn-primary">Profile</a>
+
+<!-- Tombol Logout -->
+<a href="logout.php" class="btn btn-danger">Logout</a>
+<!-- Tombol Logout -->
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
