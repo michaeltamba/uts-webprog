@@ -67,41 +67,124 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search To-Do Lists</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #091057;
+            color: #DBD3D3;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 2rem;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .card-header {
+            background-color: #EC8305;
+            color: #091057;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .form-control, .form-select {
+            background-color: #024CAA;
+            color: #DBD3D3;
+            border-color: #DBD3D3;
+            height: 40px;
+            padding: 0.375rem 0.75rem;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #EC8305;
+            box-shadow: 0 0 5px rgba(236, 131, 5, 0.5);
+        }
+        .btn-info {
+            background-color: #EC8305;
+            border-color: #EC8305;
+            height: 40px;
+            padding: 0 20px;
+            font-size: 0.875rem;
+        }
+        .text-info {
+            color: #EC8305 !important;
+        }
+        .border-secondary {
+            border-color: #DBD3D3 !important;
+        }
+        .list-group-item {
+            background-color: #024CAA;
+            border: none;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .list-group-item:hover {
+            background-color: #091057;
+            color: #EC8305;
+        }
+        .badge {
+            background-color: #EC8305;
+        }
+        .input-group {
+            display: flex;
+        }
+        .input-group .form-control, .input-group .form-select, .input-group .btn {
+            margin-right: 10px;
+        }
+        .input-group .btn {
+            margin-right: 0;
+        }
+    </style>
 </head>
 <body>
-
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card bg-dark text-white shadow-lg p-4 mb-5 rounded border-secondary">
+                    <div class="card-header">
+                        Search Your To-Do Lists
+                    </div>
                     <div class="card-body">
-                        <h2 class="text-center text-info mb-4">Search Your To-Do Lists</h2>
-                        <form method="GET" class="input-group input-group-lg">
-                            <input type="text" name="search" class="form-control bg-dark text-white border-secondary mr-1" placeholder="What to-do list are you looking for?" aria-label="Search To-Do Lists" required>
+                        <form method="GET" class="input-group">
+                            <input type="text" name="search" class="form-control bg-dark text-white border-secondary" placeholder="looking for?" aria-label="Search To-Do Lists" required>
                             <select name="filter_status" class="form-select bg-dark text-white border-secondary">
                                 <option value="all" <?php echo ($filterStatus == 'all') ? 'selected' : ''; ?>>All</option>
                                 <option value="complete" <?php echo ($filterStatus == 'complete') ? 'selected' : ''; ?>>Completed</option>
                                 <option value="incomplete" <?php echo ($filterStatus == 'incomplete') ? 'selected' : ''; ?>>Incomplete</option>
                             </select>
-                            <button type="submit" class="btn btn-info px-4">Search</button>
+                            <button type="submit" class="btn btn-info">Search</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="container mt-5 text-white">
-        <div class='card bg-dark border-secondary mb-4'> <!-- Card untuk hasil pencarian -->
-            <div class='card-body'>
+        <div class="card bg-dark border-secondary mb-4">
+            <div class="card-body">
                 <?php if (!empty($searchQuery)): ?>
-                    <h4 class='text-info'>Search Query: <?php echo $searchQuery; ?></h4>
+                    <h4 class="text-info">Search Query: <?php echo $searchQuery; ?></h4>
                 <?php endif; ?>
                 <?php echo $searchResults; ?>
-            </div> <!-- Tutup card-body -->
-        </div> <!-- Tutup card -->
+            </div>
+        </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+
