@@ -40,7 +40,7 @@ $todo_lists = $stmt->fetchAll();
 
     <!-- Tombol untuk membuat To-Do List baru -->
     <div class="d-flex justify-content-end mb-3 ">
-        <a href="create.php" class="btn create-btn me-2">search New To-Do List</a>
+        <a href="search.php" class="btn create-btn me-2">Search</a>
         <a href="create.php" class="btn create-btn">Create New To-Do List</a>
     </div>
 
