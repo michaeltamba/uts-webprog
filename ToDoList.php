@@ -38,10 +38,17 @@ $todo_lists = $stmt->fetchAll();
 <div class="container mt-5">
     <h1 class="text-center mb-4">Your To-Do Lists</h1>
 
+    
    
     <div class="d-flex justify-content-end mb-3 ">
+        <div class="d-flex justify-content-start mb-3 ">
+            <a href="profile.php" class="btn btn-primary">Profile</a>
+            <a href="logout.php" class="btn btn-danger">Logout</a>
+        </div>
         <a href="search.php" class="btn create-btn me-2">Search</a>
         <a href="create.php" class="btn create-btn">Create New To-Do List</a>
+       
+
     </div>
  
 
@@ -80,12 +87,7 @@ $todo_lists = $stmt->fetchAll();
             </div>
         <?php endif; ?>
     </div>
-        <!-- Tombol Profile -->
-        <a href="profile.php" class="btn btn-primary">Profile</a>
-
-<!-- Tombol Logout -->
-<a href="logout.php" class="btn btn-danger">Logout</a>
-<!-- Tombol Logout -->
+        
 
 </div>
 
