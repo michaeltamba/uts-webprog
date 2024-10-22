@@ -35,7 +35,7 @@ if (!$user) {
         }
 
         body {
-            background-color: #f4f7f6;
+            background-color: #091057;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -92,6 +92,10 @@ if (!$user) {
         .btn-logout:hover {
             background-color: #c9302c;
         }
+        
+        .profile-action{
+            background-color
+        }
 
         @media (max-width: 600px) {
             .profile-container {
@@ -117,6 +121,13 @@ if (!$user) {
             <a href="logout.php" class="btn btn-logout">Logout</a>
         </div>
     </div>
+    <div class="profile-actions">
+
+    <a href="ToDoList.php" class="btn">Back to To-Do List</a>
+
 </div>
+
+</div>
+
 </body>
 </html>
