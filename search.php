@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             border-color: #EC8305;
             box-shadow: 0 0 5px rgba(236, 131, 5, 0.5);
         }
+        
         .btn-info {
             background-color: #EC8305;
             border-color: #EC8305;
@@ -166,6 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                             <button type="submit" class="btn btn-info">Search</button>
                         </form>
                     </div>
+                    <a href="ToDoList.php" class="btn text-white">Back to To-Do List</a>
                 </div>
             </div>
         </div>
