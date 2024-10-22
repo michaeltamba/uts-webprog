@@ -152,13 +152,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card bg-dark text-white shadow-lg p-4 mb-5 rounded border-secondary">
-                    <div class="card-header">
+                    <div class="card-header text-white">
                         Search Your To-Do Lists
                     </div>
                     <div class="card-body">
                         <form method="GET" class="input-group">
-                            <input type="text" name="search" class="form-control bg-dark text-white border-secondary" placeholder="looking for?" aria-label="Search To-Do Lists" required>
-                            <select name="filter_status" class="form-select bg-dark text-white border-secondary">
+                            <input type="text" name="search" class="form-control bg-white text-black border-secondary" placeholder="Search?" aria-label="Search To-Do Lists" required>
+                            <select name="filter_status" class="form-select bg-white text-black border-secondary">
                                 <option value="all" <?php echo ($filterStatus == 'all') ? 'selected' : ''; ?>>All</option>
                                 <option value="complete" <?php echo ($filterStatus == 'complete') ? 'selected' : ''; ?>>Completed</option>
                                 <option value="incomplete" <?php echo ($filterStatus == 'incomplete') ? 'selected' : ''; ?>>Incomplete</option>
