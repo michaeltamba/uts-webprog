@@ -38,11 +38,7 @@ $todo_lists = $stmt->fetchAll();
 <div class="container mt-5">
     <h1 class="text-center mb-4">Your To-Do Lists</h1>
 
-    <!-- Tombol untuk membuat To-Do List baru -->
-    <div class="d-flex justify-content-end mb-3 ">
-        <a href="create.php" class="btn create-btn me-2">search New To-Do List</a>
-        <a href="create.php" class="btn create-btn">Create New To-Do List</a>
-    </div>
+ 
 
     <!-- Bootstrap Grid Layout for ToDo Cards -->
     <div class="row row-cols-1 row-cols-md-2 g-4">
