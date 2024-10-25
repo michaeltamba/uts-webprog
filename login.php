@@ -5,6 +5,8 @@ require 'config.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
+
+    // Check if the user exists
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch();
@@ -12,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        header("Location: ToDoList.php");
+        header("Location: ToDoList.php"); // Redirect to ToDoList on successful login
+        exit;
     } else {
         $error = "Email atau password salah.";
     }
@@ -121,7 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         .alert-danger {
             background-color: #ff4d4d;
         }
-
     </style>
 </head>
 <body>
@@ -134,7 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="login.php">
+    <form method="POST" action="login.php"> <!-- Changed action to point to login.php -->
+    <form method="POST" action="index.php">
         <div class="input-group">
             <i class="fas fa-envelope"></i>
             <input type="email" name="email" placeholder="Enter email" required>

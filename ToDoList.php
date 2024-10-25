@@ -12,7 +12,7 @@ if (isset($_GET['delete_id'])) {
     $delete_id = (int)$_GET['delete_id'];
     $stmt = $pdo->prepare("DELETE FROM todo_lists WHERE id = ? AND user_id = ?");
     $stmt->execute([$delete_id, $_SESSION['user_id']]);
-    header('Location: dashboard.php');
+    header('Location: ToDoList.php');
     exit;
 }
 
