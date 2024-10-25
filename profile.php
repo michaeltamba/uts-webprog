@@ -4,13 +4,11 @@
 session_start();
 require 'config.php';
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-// Ambil data user dari database berdasarkan session user_id
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT username, email FROM users WHERE id = ?");
 $stmt->execute([$user_id]);

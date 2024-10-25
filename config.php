@@ -4,7 +4,6 @@ $dbname = 'todo_app';
 $user = 'root';
 $pass = '';
 
-// Koneksi ke MySQL
 $dsnWithoutDB = "mysql:host=$host;charset=utf8mb4";
 $dsnWithDB = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 
@@ -15,16 +14,12 @@ $options = [
 ];
 
 try {
-    // Koneksi awal ke MySQL tanpa database
     $pdo = new PDO($dsnWithoutDB, $user, $pass, $options);
 
-    // Membuat database jika belum ada
     $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbname CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
 
-    // Koneksi ulang dengan database todo_app
     $pdo = new PDO($dsnWithDB, $user, $pass, $options);
 
-    // Membuat tabel users jika belum ada
     $createUserTableQuery = "
         CREATE TABLE IF NOT EXISTS `users` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -36,8 +31,6 @@ try {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
     ";
     $pdo->exec($createUserTableQuery);
-
-    // Membuat tabel todo_lists dengan kolom tambahan jika belum ada
     $createTodoListTableQuery = "
         CREATE TABLE IF NOT EXISTS `todo_lists` (
             `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -54,7 +47,6 @@ try {
     ";
     $pdo->exec($createTodoListTableQuery);
 
-    // Tambahkan kolom description, deadline, note, dan status jika belum ada
     $alterTableQuery = "
         ALTER TABLE `todo_lists` 
         ADD COLUMN IF NOT EXISTS `description` TEXT,

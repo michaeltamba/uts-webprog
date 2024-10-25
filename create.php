@@ -2,7 +2,6 @@
 include 'config.php';
 session_start(); 
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
@@ -10,16 +9,15 @@ if (!isset($_SESSION['user_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
-    $user_id = $_SESSION['user_id']; // Ambil user_id dari session
+    $user_id = $_SESSION['user_id'];
     
     if (!empty($title)) {
-        // Menggunakan PDO untuk menyiapkan query, sertakan user_id
         $stmt = $pdo->prepare("INSERT INTO todo_lists (title, user_id) VALUES (:title, :user_id)");
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT); // Bind user_id ke query
-        $stmt->execute(); // Eksekusi query
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
         header('Location: ToDoList.php');
-        exit; // Pastikan untuk keluar setelah redirect
+        exit; 
     } else {
         $error = "Title cannot be empty!";
     }
