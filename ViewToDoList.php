@@ -2,13 +2,11 @@
 include 'config.php';
 session_start();
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
-// Cek apakah to-do list ID ada di URL
 if (!isset($_GET['id'])) {
     header('Location: ToDoList.php');
     exit;
@@ -16,18 +14,15 @@ if (!isset($_GET['id'])) {
 
 $todo_id = (int)$_GET['id'];
 
-// Ambil detail to-do list berdasarkan user_id dan id
 $stmt = $pdo->prepare("SELECT * FROM todo_lists WHERE id = ? AND user_id = ?");
 $stmt->execute([$todo_id, $_SESSION['user_id']]);
 $todo_list = $stmt->fetch();
 
-// Jika tidak ditemukan, redirect ke halaman utama
 if (!$todo_list) {
     header('Location: ToDoList.php');
     exit;
 }
 
-// Update to-do list details jika form di-submit
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_details'])) {
     $description = $_POST['description'] ?? '';
     $deadline = $_POST['deadline'] ?? '';
@@ -36,23 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_details'])) {
     $stmt = $pdo->prepare("UPDATE todo_lists SET description = ?, deadline = ?, note = ? WHERE id = ? AND user_id = ?");
     $stmt->execute([$description, $deadline, $note, $todo_id, $_SESSION['user_id']]);
 
-    // Refresh halaman setelah update
     header("Location: ViewToDoList.php?id=$todo_id");
     exit;
 }
 
-// Handle perubahan status tugas
 if (isset($_POST['toggle_status'])) {
     $new_status = $todo_list['status'] == 'incomplete' ? 'complete' : 'incomplete';
     $stmt = $pdo->prepare("UPDATE todo_lists SET status = ? WHERE id = ?");
     $stmt->execute([$new_status, $todo_id]);
-
-    // Refresh halaman setelah update
     header("Location: ViewToDoList.php?id=$todo_id");
     exit;
 }
 
-// Default jika data kosong
 $description = $todo_list['description'] ?? 'No description available.';
 $deadline = $todo_list['deadline'] ?? 'No deadline set.';
 $note = $todo_list['note'] ?? 'No notes available.';
@@ -69,11 +59,11 @@ $status = $todo_list['status'] ?? 'incomplete';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
   body {
-    background-color: #DBD3D3; /* Mengubah menjadi warna dari palet */
+    background-color: #DBD3D3;
 }
 
 .header {
-    background: linear-gradient(45deg, #091057, #024CAA); /* Menggunakan #091057 dan #024CAA untuk gradient */
+    background: linear-gradient(45deg, #091057, #024CAA);
     padding: 30px;
     color: white;
     text-align: center;
@@ -130,12 +120,9 @@ $status = $todo_list['status'] ?? 'incomplete';
 <body>
 
     <div class="container mt-5">
-        <!-- Header Title with Gradient Background -->
         <div class="header">
             <h1><?php echo htmlspecialchars($todo_list['title']); ?></h1>
         </div>
-
-        <!-- Card for To-Do Details -->
         <div class="card p-4">
             <div class="card-body">
                 <h5 class="card-title">Details</h5>
@@ -150,8 +137,6 @@ $status = $todo_list['status'] ?? 'incomplete';
                         <?php echo $status == 'complete' ? 'Complete' : 'Incomplete'; ?>
                     </span>
                 </p>
-
-                <!-- Form for toggling task status -->
                 <form method="POST">
                     <button type="submit" name="toggle_status" class="btn btn-info mt-2">
                         Mark as <?php echo $status == 'complete' ? 'Incomplete' : 'Complete'; ?>
@@ -159,8 +144,6 @@ $status = $todo_list['status'] ?? 'incomplete';
                 </form>
 
                 <hr>
-
-                <!-- Form for updating To-Do List details -->
                 <h5 class="mt-4">Update To-Do List Details</h5>
                 <form method="POST">
                     <div class="mb-3">
@@ -177,8 +160,6 @@ $status = $todo_list['status'] ?? 'incomplete';
                     </div>
                     <button type="submit" name="update_details" class="btn btn-primary">Update Details</button>
                 </form>
-
-                <!-- Back Button -->
                 <a href="ToDoList.php" class="btn btn-secondary mt-3">Back to To-Do Lists</a>
             </div>
         </div>
