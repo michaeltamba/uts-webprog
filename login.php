@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="login.php"> <!-- Changed action to point to login.php -->
+    <form method="POST" action="login.php"> 
     <form method="POST" action="index.php">
         <div class="input-group">
             <i class="fas fa-envelope"></i>
