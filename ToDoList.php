@@ -4,7 +4,7 @@ session_start();
 
 // Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
+    header("Location: login.php");
     exit;
 }
 
@@ -12,7 +12,7 @@ if (isset($_GET['delete_id'])) {
     $delete_id = (int)$_GET['delete_id'];
     $stmt = $pdo->prepare("DELETE FROM todo_lists WHERE id = ? AND user_id = ?");
     $stmt->execute([$delete_id, $_SESSION['user_id']]);
-    header('Location: ToDoList.php');
+    header('Location: dashboard.php');
     exit;
 }
 

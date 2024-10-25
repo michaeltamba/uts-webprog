@@ -137,6 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php endif; ?>
 
     <form method="POST" action="login.php"> <!-- Changed action to point to login.php -->
+    <form method="POST" action="index.php">
         <div class="input-group">
             <i class="fas fa-envelope"></i>
             <input type="email" name="email" placeholder="Enter email" required>
