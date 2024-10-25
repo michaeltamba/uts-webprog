@@ -8,7 +8,6 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Handle delete action with prepared statement
 if (isset($_GET['delete_id'])) {
     $delete_id = (int)$_GET['delete_id'];
     $stmt = $pdo->prepare("DELETE FROM todo_lists WHERE id = ? AND user_id = ?");
@@ -17,7 +16,6 @@ if (isset($_GET['delete_id'])) {
     exit;
 }
 
-// Fetch all to-do lists for the logged-in user
 $stmt = $pdo->prepare("SELECT * FROM todo_lists WHERE user_id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $todo_lists = $stmt->fetchAll();
@@ -51,8 +49,6 @@ $todo_lists = $stmt->fetchAll();
         </div>
     </div>
  
-
-    <!-- Bootstrap Grid Layout for ToDo Cards -->
     <div class="row row-cols-1 row-cols-md-2 g-4">
         <?php if (count($todo_lists) > 0): ?>
             <?php foreach ($todo_lists as $row) : ?>

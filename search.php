@@ -1,30 +1,23 @@
 <?php
 include 'config.php';
-session_start(); // Pastikan session dimulai
+session_start(); 
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
-// Variabel untuk menyimpan hasil pencarian
 $searchResults = '';
 $searchQuery = '';
-$filterStatus = ''; // Variabel untuk filter status
+$filterStatus = ''; 
 $user_id = $_SESSION['user_id'];
 
-// Cek apakah request GET dan parameter 'search' dan 'filter' tersedia
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    // Dapatkan query pencarian dan filter status
     $search = $_GET['search'] ?? '';
-    $filterStatus = $_GET['filter_status'] ?? 'all'; // Nilai default 'all'
-    $searchQuery = htmlspecialchars($search); // Sanitasi query pencarian
-
-    // Mulai query SQL dasar
+    $filterStatus = $_GET['filter_status'] ?? 'all'; 
+    $searchQuery = htmlspecialchars($search); 
     $query = "SELECT * FROM todo_lists WHERE title LIKE :search AND user_id = :user_id";
 
-    // Tambahkan filter status jika dipilih
     if ($filterStatus == 'complete') {
         $query .= " AND status = 'complete'";
     } elseif ($filterStatus == 'incomplete') {
@@ -34,20 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $stmt = $pdo->prepare($query);
     $searchParam = "%" . $search . "%";
 
-    // Bind parameter ke pernyataan SQL
     $stmt->bindParam(':search', $searchParam);
     $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 
-    // Eksekusi pernyataan
     $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Ambil hasil sebagai array asosiatif
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
-    // Membungkus hasil pencarian dalam card
     if (count($result) > 0) {
         $searchResults .= "<h4 class='text-success mb-4'>Found " . count($result) . " to-do list(s)</h4>";
         $searchResults .= "<div class='list-group'>";
         foreach ($result as $todo_list) {
-            // Tautkan judul ke ViewToDoList.php
             $searchResults .= "<a href='ViewToDoList.php?id=" . $todo_list['id'] . "' class='list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark text-white border-secondary'>";
             $searchResults .= "<span>" . htmlspecialchars($todo_list['title']) . "</span>"; // Tampilkan judul
             $searchResults .= "<span class='badge bg-info rounded-pill'>" . ucfirst($todo_list['status']) . "</span>"; // Tampilkan status

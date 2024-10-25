@@ -7,14 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-    // Cek apakah email sudah terdaftar
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
 
     if ($stmt->rowCount() > 0) {
         $error = "Email sudah terdaftar!";
     } else {
-        // Insert user ke dalam database
         $stmt = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         if ($stmt->execute([$username, $email, $password])) {
             $success = "Registrasi berhasil! Anda bisa <a href='login.php'>login</a> sekarang.";

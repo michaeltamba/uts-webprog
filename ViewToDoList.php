@@ -93,21 +93,21 @@ $status = $todo_list['status'] ?? 'incomplete';
 }
 
 .btn-primary {
-    background-color: #091057; /* Mengubah menjadi #091057 */
+    background-color: #091057;
     border: none;
 }
 
 .btn-primary:hover {
-    background-color: #024CAA; /* Mengubah menjadi #024CAA */
+    background-color: #024CAA;
 }
 
 .btn-info {
-    background-color: #EC8305; /* Mengubah menjadi #EC8305 */
+    background-color: #EC8305;
     border: none;
 }
 
 .btn-info:hover {
-    background-color: #024CAA; /* Mengubah menjadi #024CAA */
+    background-color: #024CAA;
 }
 
 .status-badge {

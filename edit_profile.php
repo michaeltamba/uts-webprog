@@ -2,13 +2,11 @@
 session_start();
 require 'config.php';
 
-// Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-// Ambil data user dari database berdasarkan session user_id
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT username, email FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
@@ -19,13 +17,11 @@ if (!$user) {
     exit;
 }
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = htmlspecialchars($_POST['username']);
     $email = htmlspecialchars($_POST['email']);
     $password = !empty($_POST['password']) ? password_hash($_POST['password'], PASSWORD_BCRYPT) : null;
 
-    // Update data user, password hanya diperbarui jika diisi
     if ($password) {
         $stmt = $pdo->prepare("UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?");
         $stmt->execute([$username, $email, $password, $user_id]);
@@ -34,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username, $email, $user_id]);
     }
 
-    // Redirect kembali ke halaman profil setelah update
     header("Location: profile.php");
     exit;
 }
